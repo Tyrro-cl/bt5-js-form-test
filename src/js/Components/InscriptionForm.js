@@ -65,7 +65,7 @@ export default class InscriptionForm {
         validate: (input) => {
           return component.validatePassword(input.value);
         },
-      },
+      }
     ];
 
     fields.forEach((field) => {
@@ -73,25 +73,38 @@ export default class InscriptionForm {
       if (input) {
         const isValid = field.validate(input);
         if (isValid) {
-          input.classList.add("border-sucess");
+          input.classList.add("border-success");
           input.classList.remove("border-danger");
         } else {
           input.classList.add("border-danger");
-          input.classList.remove("border-sucess");
+          input.classList.remove("border-success");
         }
         console.log(isValid);
       }
     });
   }
 
-  validateAge = (age) => {
-    const getAge = moment(age).year();
-    const minAge = moment().diff("18", "years", false);
+  validateAge = (birthday) => {
+    //const today = moment();
+    //console.log(`FIRST log of variable 'today' : ${today}`)  
+    const getBirthday = new moment(birthday);
+    console.log(`log of variable 'getBirthday' : ${getBirthday}`)
+    // const yearAge = getBirthday.year();
+    const minAge = new moment().subtract(18, "years"); // .year if we want just to get the year number
+    console.log(`log of variable 'minAge' : ${minAge}`)
+    // console.log(`SECOND log of variable 'today' : ${today}`)
 
-    if (getAge >= minAge) {
-      return getAge;
+    const minAgeYear = new moment().diff(minAge, 'years'); // prompts actual age inserted
+    const yearsDiff = new moment().diff(getBirthday, "years");
+    //console.log(`THIRD log of variable 'today' : ${today}`)
+
+    // console.log(`log of variable 'minAgeYear' before conditional : ${minAgeYear}`) // removing .year from const 'minAge' stopped prompting '54' in this log
+    // console.log(`log of variable 'yearsDiff' before conditional : ${yearsDiff}`)
+
+    if (yearsDiff >= minAgeYear) {
+      return yearsDiff;
     } else {
-      return alert(`Votre âge de ${getAge} n'est pas valable`);
+      return alert(`Votre âge de ${yearsDiff} ans n'est pas le minimun de ${minAgeYear} ans comme il est exigé`);
     }
   };
 
@@ -106,7 +119,7 @@ export default class InscriptionForm {
     // Minimum eight characters, at least one letter, one number and one special character:
     const passwordRegex =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-
+    
     return String(password).match(passwordRegex);
   };
 

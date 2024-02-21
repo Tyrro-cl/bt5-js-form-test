@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector(".js-dom-ready").classList.remove("hidden");
   new InscriptionForm();
 
-  window.onload = () => {
+  /*window.onload = () => {
     localStorage.setItem("name", document.getElementById("fname").value);
     localStorage.setItem("lname", document.getElementById("flname").value);
     localStorage.setItem("email", document.getElementById("email").value);
@@ -21,5 +21,5 @@ document.addEventListener("DOMContentLoaded", () => {
   localStorage.getItem("name");
   localStorage.getItem("lname");
   localStorage.getItem("email");
-  localStorage.getItem("birthday");
+  localStorage.getItem("birthday");*/
 });
