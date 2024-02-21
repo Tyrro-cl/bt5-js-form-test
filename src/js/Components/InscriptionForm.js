@@ -120,7 +120,14 @@ export default class InscriptionForm {
     const passwordRegex =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     
+    const component = this;
+    const getPassConfirm = component.form.querySelector('.js-form-confirm-password').value;
+
+    if ( password == getPassConfirm) {
     return String(password).match(passwordRegex);
+    } else {
+    return console.log(password, getPassConfirm);;
+    }
   };
 
   /* validateTel = (tel) => {
