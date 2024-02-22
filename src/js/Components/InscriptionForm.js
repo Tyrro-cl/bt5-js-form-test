@@ -39,13 +39,13 @@ export default class InscriptionForm {
       {
         selector: ".js-form-name",
         validate: (input) => {
-          return input.value.trim() !== "";
+          return component.validateIdentity(input.value);
         },
       },
       {
         selector: ".js-form-lname",
         validate: (input) => {
-          return input.value.trim() !== "";
+          return component.validateIdentity(input.value);
         },
       },
       {
@@ -85,21 +85,17 @@ export default class InscriptionForm {
   }
 
   validateAge = (birthday) => {
-    //const today = moment();
-    //console.log(`FIRST log of variable 'today' : ${today}`)  
+    
     const getBirthday = new moment(birthday);
     console.log(`log of variable 'getBirthday' : ${getBirthday}`)
-    // const yearAge = getBirthday.year();
-    const minAge = new moment().subtract(18, "years"); // .year if we want just to get the year number
+    
+    const minAge = new moment().subtract(18, "years"); 
     console.log(`log of variable 'minAge' : ${minAge}`)
-    // console.log(`SECOND log of variable 'today' : ${today}`)
+    
 
     const minAgeYear = new moment().diff(minAge, 'years'); // prompts actual age inserted
     const yearsDiff = new moment().diff(getBirthday, "years");
-    //console.log(`THIRD log of variable 'today' : ${today}`)
-
-    // console.log(`log of variable 'minAgeYear' before conditional : ${minAgeYear}`) // removing .year from const 'minAge' stopped prompting '54' in this log
-    // console.log(`log of variable 'yearsDiff' before conditional : ${yearsDiff}`)
+   
 
     if (yearsDiff >= minAgeYear) {
       return yearsDiff;
@@ -126,15 +122,26 @@ export default class InscriptionForm {
     if ( password == getPassConfirm) {
     return String(password).match(passwordRegex);
     } else {
-    return console.log(password, getPassConfirm);;
+    return console.log(`Passwords doesn't match`);
     }
   };
 
-  /* validateTel = (tel) => {
-    const telRegex =
-      /^(?:(?:(?:\+|00)33[ ]?(?:\(0\)[ ]?)?)|0){1}[1-9]{1}([ .-]?)(?:\d{2}\1?){3}\d{2}$/;
-    if (this.phoneFilled) {
-      return String(tel).match(telRegex);
-    }
-  };*/
+  validateIdentity = (identity) => {
+
+    const regexIdentity = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s']*$/u;
+
+    const verifyIdentity = (identity, callback) => {
+    console.log(identity);
+      if (identity.match(regexIdentity) ){
+      return callback(identity);
+      } else {};
+    };
+
+    const capitalizeFirstLetter = () => {
+      return String(identity.charAt(0).toUpperCase() + identity.slice(1));
+    };
+
+    console.log(verifyIdentity(identity, capitalizeFirstLetter));
+  }
+
 }
