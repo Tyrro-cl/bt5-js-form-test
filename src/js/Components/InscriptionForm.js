@@ -25,14 +25,66 @@ export default class InscriptionForm {
 
   initForm() {
     const component = this; // Declares "component" as a "this" to access the global scope
-    this.form.addEventListener("submit", function (e) {
+    this.form.addEventListener("submit", (e) => {
       // Callback function that is composed of 2 events, submit, and the function that handles whatever the requirements and handler are call afterwards
 
       e.preventDefault(); // Prevents Browser Default Form Handler
       component.validateForm(); // Access to the validateForm method same scope outside the callback function one
     });
+
+    // this.form.addEventListener('keypress', () => {  Acces to the filterInputs method when typing })
+
+    this.filterInputs(); // Initialize filterInputs method
+    
   }
 
+  filterInputs() {
+    const component = this;
+    const fields = [
+      {
+        selector: ".js-form-name",
+        filter: (input) => {
+          return component.filterIdentity(input.value);
+        },
+      },
+      {
+        selector: ".js-form-lname",
+        filter: (input) => {
+          return component.filterIdentity(input.value);
+        },
+      },
+      {
+        selector: ".js-form-email",
+        filter: (input) => {
+          return component.filterEmail(input.value);
+        },
+      },
+      {
+        selector: ".js-form-password",
+        filter: (input) => {
+          return component.filterPassword(input.value);
+        },
+      }
+    ];
+
+    // addEventListener('keypress',(field) => {
+    fields.forEach((field) => {
+      const input = component.form.querySelector(field.selector);
+      
+      if (input) {
+        const isValid = field.filter(input);
+        if (isValid) {
+          input.classList.add("border-success");
+          input.classList.remove("border-danger");
+        } else {
+          input.classList.add("border-danger");
+          input.classList.remove("border-success");
+          field.preventDefault();
+        }
+        console.log(`Logging values in live filtering ${isValid}`);
+      }
+    });
+  }
   validateForm() {
     const component = this;
     const fields = [
@@ -79,7 +131,7 @@ export default class InscriptionForm {
           input.classList.add("border-danger");
           input.classList.remove("border-success");
         }
-        console.log(isValid);
+        console.log(`Logging values in valitadion ${isValid}`);
       }
     });
   }
@@ -142,6 +194,17 @@ export default class InscriptionForm {
     };
 
     console.log(verifyIdentity(identity, capitalizeFirstLetter));
+  }
+
+  filterIdentity = (identity) => {
+    const identityRegex = /[A-Za-z]/;
+    let character = String.fromCharCode(identity.keyCode);
+
+    if (!identityRegex(character)){
+      return false;
+    } else {
+      String(identity.charAt(0).toUpperCase() + identity.slice(1));
+    }
   }
 
 }
