@@ -68,10 +68,11 @@ export default class InscriptionForm {
     ];
 
     // addEventListener('keypress',(field) => {
+    // field.addEventListener("click"), ()
     fields.forEach((field) => {
       const input = component.form.querySelector(field.selector);
-      
       if (input) {
+        input.addEventListener("click", () => { 
         const isValid = field.filter(input);
         if (isValid) {
           input.classList.add("border-success");
@@ -82,6 +83,7 @@ export default class InscriptionForm {
           field.preventDefault();
         }
         console.log(`Logging values in live filtering ${isValid}`);
+        }) 
       }
     });
   }
