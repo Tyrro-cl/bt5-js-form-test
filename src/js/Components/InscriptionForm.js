@@ -1,6 +1,6 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/themes/light.css";
-
+import validate from "validate.js";
 import moment from "moment";
 
 export default class InscriptionForm {
@@ -35,7 +35,6 @@ export default class InscriptionForm {
     // this.form.addEventListener('keypress', () => {  Acces to the filterInputs method when typing })
 
     this.filterInputs(); // Initialize filterInputs method
-    
   }
 
   filterInputs() {
@@ -56,7 +55,7 @@ export default class InscriptionForm {
       {
         selector: ".js-form-email",
         filter: (input) => {
-          return component.filterEmail(input.value);
+          return component.filterEmail(input);
         },
       },
       {
@@ -64,7 +63,7 @@ export default class InscriptionForm {
         filter: (input) => {
           return component.filterPassword(input.value);
         },
-      }
+      },
     ];
 
     // addEventListener('keypress',(field) => {
@@ -72,18 +71,18 @@ export default class InscriptionForm {
     fields.forEach((field) => {
       const input = component.form.querySelector(field.selector);
       if (input) {
-        input.addEventListener("click", () => { 
-        const isValid = field.filter(input);
-        if (isValid) {
-          input.classList.add("border-success");
-          input.classList.remove("border-danger");
-        } else {
-          input.classList.add("border-danger");
-          input.classList.remove("border-success");
-          field.preventDefault();
-        }
-        console.log(`Logging values in live filtering ${isValid}`);
-        }) 
+        input.addEventListener("click", () => {
+          const isValid = field.filter(input);
+          if (isValid) {
+            input.classList.add("border-success");
+            input.classList.remove("border-danger");
+          } else {
+            input.classList.add("border-danger");
+            input.classList.remove("border-success");
+            field.preventDefault();
+          }
+          console.log(`Logging values in live filtering ${isValid}`);
+        });
       }
     });
   }
@@ -119,7 +118,7 @@ export default class InscriptionForm {
         validate: (input) => {
           return component.validatePassword(input.value);
         },
-      }
+      },
     ];
 
     fields.forEach((field) => {
@@ -139,22 +138,21 @@ export default class InscriptionForm {
   }
 
   validateAge = (birthday) => {
-    
     const getBirthday = new moment(birthday);
-    console.log(`log of variable 'getBirthday' : ${getBirthday}`)
-    
-    const minAge = new moment().subtract(18, "years"); 
-    console.log(`log of variable 'minAge' : ${minAge}`)
-    
+    console.log(`log of variable 'getBirthday' : ${getBirthday}`);
 
-    const minAgeYear = new moment().diff(minAge, 'years'); // prompts actual age inserted
+    const minAge = new moment().subtract(18, "years");
+    console.log(`log of variable 'minAge' : ${minAge}`);
+
+    const minAgeYear = new moment().diff(minAge, "years"); // prompts actual age inserted
     const yearsDiff = new moment().diff(getBirthday, "years");
-   
 
     if (yearsDiff >= minAgeYear) {
       return yearsDiff;
     } else {
-      return alert(`Votre âge de ${yearsDiff} ans n'est pas le minimun de ${minAgeYear} ans comme il est exigé`);
+      return alert(
+        `Votre âge de ${yearsDiff} ans n'est pas le minimun de ${minAgeYear} ans comme il est exigé`,
+      );
     }
   };
 
@@ -169,26 +167,28 @@ export default class InscriptionForm {
     // Minimum eight characters, at least one letter, one number and one special character:
     const passwordRegex =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    
-    const component = this;
-    const getPassConfirm = component.form.querySelector('.js-form-confirm-password').value;
 
-    if ( password == getPassConfirm) {
-    return String(password).match(passwordRegex);
+    const component = this;
+    const getPassConfirm = component.form.querySelector(
+      ".js-form-confirm-password",
+    ).value;
+
+    if (password == getPassConfirm) {
+      return String(password).match(passwordRegex);
     } else {
-    return console.log(`Passwords doesn't match`);
+      return console.log(`Passwords doesn't match`);
     }
   };
 
   validateIdentity = (identity) => {
-
     const regexIdentity = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s']*$/u;
 
     const verifyIdentity = (identity, callback) => {
-    console.log(identity);
-      if (identity.match(regexIdentity) ){
-      return callback(identity);
-      } else {};
+      console.log(identity);
+      if (identity.match(regexIdentity)) {
+        return callback(identity);
+      } else {
+      }
     };
 
     const capitalizeFirstLetter = () => {
@@ -196,17 +196,46 @@ export default class InscriptionForm {
     };
 
     console.log(verifyIdentity(identity, capitalizeFirstLetter));
-  }
+  };
 
   filterIdentity = (identity) => {
     const identityRegex = /[A-Za-z]/;
+
     let character = String.fromCharCode(identity.keyCode);
 
-    if (!identityRegex(character)){
+    if (!identityRegex(character)) {
       return false;
     } else {
-      String(identity.charAt(0).toUpperCase() + identity.slice(1));
+      String(validate.capitalize(identity));
     }
-  }
+  };
 
+  filterEmail = (email) => {
+    // let getValue = email.value;
+
+    const constraints = {
+      from: {
+        email: {
+          message: "Invalid email format",
+        },
+      },
+    };
+
+    
+
+    console.log(`1st log of email parameter : ${email}`);
+    // console.log(`1st log of emailChar variable :  ${emailChar}`)
+    // console.log(`1st log of getValue variable : ${getValue}`);
+
+    email.addEventListener("input", (e) => {
+      const emailValue = e.target.value;
+      const emailValidation = validate({ from: emailValue }, constraints);
+      if (!emailValidation) {
+        e.preventDefault();
+      } 
+      // let emailChar = String.fromCharCode(getValue.keyCode)
+      // console.log(`log inside callback of emailChar variable : ${emailChar}`)
+      console.log(`log inside callback of getValue variable : ${emailValue}`);
+    });
+  };
 }
