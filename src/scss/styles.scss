@@ -30,8 +30,11 @@ $enable-shadows: true;
 $offcanvas-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
 
 // Include functions first
+// $bootstrap-icons-font-dir: "../node_modules/bootstrap-icons/font/fonts"; // relative to the current file
+//@import "bootstrap-icons/font/bootstrap-icons.scss";
 @import "bootstrap/scss/functions";
-@import "~bootstrap/scss/bootstrap";
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons.css";
 // Customize some defaults
 $body-color: #333;
 $body-bg: #fff;
@@ -70,7 +73,7 @@ $success: #7952b3;
 @import "bootstrap/scss/close";
 // @import "bootstrap/scss/toasts";
 @import "bootstrap/scss/modal"; // Requires transitions
-// @import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/tooltip";
 @import "bootstrap/scss/popover";
 @import "bootstrap/scss/carousel";
 // @import "bootstrap/scss/spinners";
@@ -78,7 +81,7 @@ $success: #7952b3;
 // @import "bootstrap/scss/placeholders";
 
 // Helpers
-// @import "bootstrap/scss/helpers";
+@import "bootstrap/scss/helpers";
 
 // Utilities
 @import "bootstrap/scss/utilities/api";

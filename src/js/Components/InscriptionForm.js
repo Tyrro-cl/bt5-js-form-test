@@ -11,9 +11,11 @@ export default class InscriptionForm {
     // "this" access to the global scope, then "form" property its appended to it
     this.form = document.querySelector("#contact-form"); // "this.form" variable is declared as an id targeter of "#contact-form"
     const getDate = this.form.querySelector(".js-form-birthday");
+    
     // verifies if "this.form" exist, then initializes "initForm" method
     if (this.form) {
       this.initForm();
+      this.revealPassword();
 
       flatpickr(getDate, {
         altInput: true,
@@ -21,6 +23,35 @@ export default class InscriptionForm {
         dateFormat: "Y-m-d",
       });
     }
+  }
+
+
+  revealPassword() {
+    const getSpan = this.form.querySelector(".js-reveal-password");
+    // const getIcon = this.form.querySelector(".js-reveal-eye");
+    const getField = this.form.querySelector(".js-form-password")
+    
+    getSpan.addEventListener("click", () => {
+
+    const getFieldType = getField.getAttribute("type");
+    getFieldType === "password" ? "text" : "password";
+    getField.setAttribute("type", getFieldType);
+
+    getSpan.children[0].classList.toggle("bi-eye-slash-fill")
+
+
+
+      /* if (getField.type === "password"){
+        getField.type === "text";
+        getSpan.children[0].classList.remove("bi bi-eye");
+        getSpan.children[0].classList.add("bi bi-eye-slash-fill")
+      } else {
+        getField.type === "password";
+        getSpan.children[0].classList.remove("bi bi-eye-slash-fill");
+        getSpan.children[0].classList.add("bi bi-eye")
+      } */
+    });
+
   }
 
   initForm() {
@@ -79,7 +110,7 @@ export default class InscriptionForm {
           } else {
             input.classList.add("border-danger");
             input.classList.remove("border-success");
-            field.preventDefault();
+            // field.preventDefault();
           }
           console.log(`Logging values in live filtering ${isValid}`);
         });
@@ -211,31 +242,49 @@ export default class InscriptionForm {
   };
 
   filterEmail = (email) => {
-    // let getValue = email.value;
-
-    const constraints = {
-      from: {
-        email: {
-          message: "Invalid email format",
-        },
-      },
-    };
-
-    
-
+    // let getValue = email.value;h
     console.log(`1st log of email parameter : ${email}`);
     // console.log(`1st log of emailChar variable :  ${emailChar}`)
     // console.log(`1st log of getValue variable : ${getValue}`);
-
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{4,}$/; 
+    // let emailValue = "";
+    let inputValue;
     email.addEventListener("input", (e) => {
-      const emailValue = e.target.value;
-      const emailValidation = validate({ from: emailValue }, constraints);
-      if (!emailValidation) {
+      
+      inputValue = e.target.value
+      if (!emailRegex.test(inputValue)) {
+        e.target.value = inputValue.replace(/[^a-zA-Z0-9._@-]/g, '');
+      }
+      //const emailValidation = validate({ from: e.target.value }, constraints);
+      
+
+      /* validate.async({ from : emailValue }, constraints).then((validationResult) => {
+        if (validationResult) {
+          e.preventDefault();
+          console.log(`Invalid email character: ${emailValue}`);
+        } else {
+          console.log(`Valid email character: ${emailValue}`)
+        }
+      }).catch((error) => {
+        console.error("Validation error", error);
+      });
+       do {
+        emailValue = e.target.value;
+      }while (emailValidation); 
+      
+      if (!emailValidation){
         e.preventDefault();
-      } 
+        console.log("AAAAAAAA")
+      } */
       // let emailChar = String.fromCharCode(getValue.keyCode)
       // console.log(`log inside callback of emailChar variable : ${emailChar}`)
-      console.log(`log inside callback of getValue variable : ${emailValue}`);
+       
+      console.log(`log inside callback of emailValue variable : ${inputValue}`);
+
+      return inputValue; 
     });
+
+    return inputValue;
+    console.log(`log outside callback of emailValue variable : ${inputValue}`);
   };
 }

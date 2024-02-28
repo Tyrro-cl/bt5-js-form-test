@@ -1,5 +1,5 @@
 import "../scss/styles.scss";
-import * as bootstrap from "bootstrap";
+import * as bootstrap from 'bootstrap';
 import InscriptionForm from "./Components/InscriptionForm";
 // import "../../node_modules/bootstrap/dist/js/bootstrap.bundle";
 // import carousel from "bootstrap/js/dist/carousel";

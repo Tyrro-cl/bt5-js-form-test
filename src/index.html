@@ -13,7 +13,6 @@
                 <div class="row">
                     <div id="form-container" class="col-sm-12 col-lg-6">
                         <h1>Inscription</h1>
-
                         <form
                             class="row needs-validation"
                             id="contact-form"
@@ -145,70 +144,86 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 col-sm-6 px-0">
-                                <div class="container">
-                                    <div class="row">
-                                        <label
-                                            class="col-sm-12 col-lg-8 px-0 pb-2"
-                                            for="fpassword"
-                                            >Mot de passe*</label
-                                        >
-                                        <input
-                                            class="col-10 js-form-password"
-                                            type="password"
-                                            id="fpassword"
-                                            name="fpassword"
-                                            minlength="12"
-                                            required
-                                        />
-                                        <div
-                                            class="valid-feedback"
-                                            style="display: none"
-                                        >
-                                            Ce mot de passe est valable!
-                                        </div>
-                                        <div
-                                            class="invalid-feedback"
-                                            style="display: none"
-                                        >
-                                            Veuillez vérifier si votre mot de
-                                            passe est en regle
-                                        </div>
+                            <div class="col-lg-5 col-sm-6 px-0 me-5">
+                                <!-- <div class="container"> -->
+                                <!-- <div class="row"> -->
+                                <label
+                                    class="col-sm-12 col-lg-8 px-0 pb-2 form-label"
+                                    for="fpassword"
+                                    >Mot de passe*</label
+                                >
+                                <div class="input-group">
+                                    <input
+                                        class="col-8 js-form-password form-control"
+                                        type="password"
+                                        id="fpassword"
+                                        name="fpassword"
+                                        minlength="12"
+                                        required
+                                    />
+                                    <span class="input-group-text js-reveal-password"
+                                        ><i
+                                            class="bi bi-eye font-secondary"
+                                            style="font-size: 1rem"
+                                        ></i
+                                    ></span>
+                                    <div
+                                        class="valid-feedback"
+                                        style="display: none"
+                                    >
+                                        Ce mot de passe est valable!
+                                    </div>
+                                    <div
+                                        class="invalid-feedback"
+                                        style="display: none"
+                                    >
+                                        Veuillez vérifier si votre mot de passe
+                                        est en regle
                                     </div>
                                 </div>
+                                <!-- </div> -->
+                                <!-- </div> -->
                             </div>
 
-                            <div class="col-lg-6 col-sm-6 px-0">
-                                <div class="container">
-                                    <div class="row">
-                                        <label
-                                            class="col-12 px-0 pb-2"
-                                            for="fpassword"
-                                            >Confirmer mot de passe*</label
-                                        >
-                                        <input
-                                            class="col-10 js-form-confirm-password"
-                                            type="password"
-                                            id="f-confirm-password"
-                                            name="fpassword"
-                                            minlength="12"
-                                            required
-                                        />
-                                        <div
-                                            class="valid-feedback"
-                                            style="display: none"
-                                        >
-                                            Mot de passe bien vérifié!
-                                        </div>
-                                        <div
-                                            class="invalid-feedback"
-                                            style="display: none"
-                                        >
-                                            Veuillez vérifier si votre
-                                            vérification coïncide
-                                        </div>
+                            <div class="col-lg-5 col-sm-6 px-0">
+                                <!-- <div class="container"> -->
+                                <!-- <div class="row"> -->
+                                <label
+                                    class="col-12 px-0 pb-2 form-label"
+                                    for="fpassword"
+                                    >Confirmer mot de passe*</label
+                                >
+                                <div class="input-group">
+                                    <input
+                                        class="col-8 js-form-confirm-password form-control"
+                                        type="password"
+                                        id="f-confirm-password"
+                                        name="fpassword"
+                                        minlength="12"
+                                        required
+                                    />
+                                    <span class="input-group-text"
+                                        ><i
+                                            class="bi bi-eye font-secondary"
+                                            style="font-size: 1rem"
+                                        ></i
+                                    ></span>
+                                    <div
+                                        class="valid-feedback"
+                                        style="display: none"
+                                    >
+                                        Mot de passe bien vérifié!
+                                    </div>
+                                    <div
+                                        class="invalid-feedback"
+                                        style="display: none"
+                                    >
+                                        Veuillez vérifier si votre vérification
+                                        coïncide
                                     </div>
                                 </div>
+                                <!-- </div> -->
+                                <!-- </div> -->
                             </div>
                             <div class="col-6 px-0 my-5">
                                 <button type="submit">S'enregistrer</button>
@@ -247,7 +262,7 @@
                                     class="text-bg-dark carousel-item active ratio ratio-4x3"
                                 >
                                     <img
-                                        src="./src/img/slider-1.jpg"
+                                        src="./img/slider-1.jpg"
                                         class="card-img opacity-50 img-fluid"
                                         alt="..."
                                     />
@@ -265,7 +280,7 @@
                                     class="text-bg-dark carousel-item ratio ratio-4x3"
                                 >
                                     <img
-                                        src="./src/img/slider-2.jpg"
+                                        src="./img/slider-2.jpg"
                                         class="card-img opacity-50 img-fluid"
                                         alt="..."
                                     />
@@ -284,7 +299,7 @@
                                     class="text-bg-dark carousel-item ratio ratio-4x3"
                                 >
                                     <img
-                                        src="./src/img/slider-3.jpg"
+                                        src="./img/slider-3.jpg"
                                         class="card-img opacity-50 img-fluid"
                                         alt="..."
                                     />
@@ -329,6 +344,6 @@
                 </div>
             </div>
         </main>
-        <script type="module" src="./src/js/main.js"></script>
+        <script type="module" src="./js/main.js"></script>
     </body>
 </html>
