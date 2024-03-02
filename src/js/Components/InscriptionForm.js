@@ -11,7 +11,7 @@ export default class InscriptionForm {
     // "this" access to the global scope, then "form" property its appended to it
     this.form = document.querySelector("#contact-form"); // "this.form" variable is declared as an id targeter of "#contact-form"
     const getDate = this.form.querySelector(".js-form-birthday");
-    
+
     // verifies if "this.form" exist, then initializes "initForm" method
     if (this.form) {
       this.initForm();
@@ -25,35 +25,52 @@ export default class InscriptionForm {
     }
   }
 
-
   revealPassword() {
-    const getSpan = this.form.querySelector(".js-reveal-password");
+    const getSpans = this.form.querySelectorAll(".js-reveal-password");
     // const getIcon = this.form.querySelector(".js-reveal-eye");
-    
-    
-    
-    getSpan.addEventListener("click", () => {
-    const getInput = this.form.querySelector(".js-form-password");
-    console.log(`log inside add event listener and log of Input : ${getInput}`);
-    const getInputType = getInput.getAttribute("type") === "password" ? "text" : "password";
-    getInput.setAttribute("type", getInputType);
-    
-    const getInputIcon = getSpan.firstChild; 
-    getInputIcon.classList.toggle("bi-eye-slash-fill");
 
+    console.log(getSpans);
 
+    getSpans.forEach((showBtn) =>
+      showBtn.addEventListener("click", (e) => {
+        // console.log(e.currentTarget);
+        const getInput = e.currentTarget.previousElementSibling;
+        /*console.log(
+          "log inside add event listener and log of Input:",
+          getInput,
+        ); */
+        const getInputIcon = e.currentTarget.firstChild;
+        const getIconClasses = getInputIcon.classList
+        
+        if (getInput.value !== "") {
 
-      /* if (getField.type === "password"){
-        getField.type === "text";
-        getSpan.children[0].classList.remove("bi bi-eye");
-        getSpan.children[0].classList.add("bi bi-eye-slash-fill")
-      } else {
-        getField.type === "password";
-        getSpan.children[0].classList.remove("bi bi-eye-slash-fill");
-        getSpan.children[0].classList.add("bi bi-eye")
-      } */
-    });
+          const getInputType =
+          getInput.getAttribute("type") === "password" ? "text" : "password";
+          getInput.setAttribute("type", getInputType);
 
+          getIconClasses.toggle("bi-eye-slash-fill");
+          getIconClasses.toggle("bi-eye");
+          
+        } else {
+        }
+
+        
+        // console.log("log of getInputIcon variable :", getInputIcon);
+
+        
+
+        
+        /* if (getInputIcon.classList == "bi-eye") {
+          getInputIcon.classList.remove("bi-eye");
+          getInputIcon.classList.add("bi-eye-slash-fill");
+        } else {
+          getInputIcon.classList.remove("bi-eye-slash-fill");
+          getInputIcon.classList.add("bi-eye");
+        }
+        */
+        //.toggle("bi-eye-slash-fill");
+      }),
+    );
   }
 
   initForm() {
@@ -248,17 +265,15 @@ export default class InscriptionForm {
     console.log(`1st log of email parameter : ${email}`);
     // console.log(`1st log of emailChar variable :  ${emailChar}`)
     // console.log(`1st log of getValue variable : ${getValue}`);
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{4,}$/; 
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{4,}$/;
     // let emailValue = "";
     let inputValue;
     email.addEventListener("input", (e) => {
-      
-      inputValue = e.target.value
+      inputValue = e.target.value;
       if (!emailRegex.test(inputValue)) {
-        e.target.value = inputValue.replace(/[^a-zA-Z0-9._@-]/g, '');
+        e.target.value = inputValue.replace(/[^a-zA-Z0-9._@-]/g, "");
       }
       //const emailValidation = validate({ from: e.target.value }, constraints);
-      
 
       /* validate.async({ from : emailValue }, constraints).then((validationResult) => {
         if (validationResult) {
@@ -280,10 +295,10 @@ export default class InscriptionForm {
       } */
       // let emailChar = String.fromCharCode(getValue.keyCode)
       // console.log(`log inside callback of emailChar variable : ${emailChar}`)
-       
+
       console.log(`log inside callback of emailValue variable : ${inputValue}`);
 
-      return inputValue; 
+      return inputValue;
     });
 
     return inputValue;
