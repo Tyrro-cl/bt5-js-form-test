@@ -29,15 +29,17 @@ export default class InscriptionForm {
   revealPassword() {
     const getSpan = this.form.querySelector(".js-reveal-password");
     // const getIcon = this.form.querySelector(".js-reveal-eye");
-    const getField = this.form.querySelector(".js-form-password")
+    
+    
     
     getSpan.addEventListener("click", () => {
-
-    const getFieldType = getField.getAttribute("type");
-    getFieldType === "password" ? "text" : "password";
-    getField.setAttribute("type", getFieldType);
-
-    getSpan.children[0].classList.toggle("bi-eye-slash-fill")
+    const getInput = this.form.querySelector(".js-form-password");
+    console.log(`log inside add event listener and log of Input : ${getInput}`);
+    const getInputType = getInput.getAttribute("type") === "password" ? "text" : "password";
+    getInput.setAttribute("type", getInputType);
+    
+    const getInputIcon = getSpan.firstChild; 
+    getInputIcon.classList.toggle("bi-eye-slash-fill");
 
 
 
