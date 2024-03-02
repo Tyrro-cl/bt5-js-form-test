@@ -33,42 +33,20 @@ export default class InscriptionForm {
 
     getSpans.forEach((showBtn) =>
       showBtn.addEventListener("click", (e) => {
-        // console.log(e.currentTarget);
         const getInput = e.currentTarget.previousElementSibling;
-        /*console.log(
-          "log inside add event listener and log of Input:",
-          getInput,
-        ); */
-        const getInputIcon = e.currentTarget.firstChild;
-        const getIconClasses = getInputIcon.classList
-        
-        if (getInput.value !== "") {
 
+        const getInputIcon = e.currentTarget.firstChild;
+        const getIconClasses = getInputIcon.classList;
+
+        if (getInput.value !== "") {
           const getInputType =
-          getInput.getAttribute("type") === "password" ? "text" : "password";
+            getInput.getAttribute("type") === "password" ? "text" : "password";
           getInput.setAttribute("type", getInputType);
 
           getIconClasses.toggle("bi-eye-slash-fill");
           getIconClasses.toggle("bi-eye");
-          
         } else {
         }
-
-        
-        // console.log("log of getInputIcon variable :", getInputIcon);
-
-        
-
-        
-        /* if (getInputIcon.classList == "bi-eye") {
-          getInputIcon.classList.remove("bi-eye");
-          getInputIcon.classList.add("bi-eye-slash-fill");
-        } else {
-          getInputIcon.classList.remove("bi-eye-slash-fill");
-          getInputIcon.classList.add("bi-eye");
-        }
-        */
-        //.toggle("bi-eye-slash-fill");
       }),
     );
   }
@@ -116,8 +94,6 @@ export default class InscriptionForm {
       },
     ];
 
-    // addEventListener('keypress',(field) => {
-    // field.addEventListener("click"), ()
     fields.forEach((field) => {
       const input = component.form.querySelector(field.selector);
       if (input) {
@@ -134,6 +110,18 @@ export default class InscriptionForm {
           console.log(`Logging values in live filtering ${isValid}`);
         });
       }
+      
+      if (field.selector === ".js-form-email") {
+        input.addEventListener("blur", async () => {
+            try {
+                const emailValue = await field.filter(input);
+                console.log("Email value:", emailValue);
+                // Perform further verification with the email value
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        });
+    }
     });
   }
   validateForm() {
@@ -261,47 +249,26 @@ export default class InscriptionForm {
   };
 
   filterEmail = (email) => {
-    // let getValue = email.value;h
     console.log(`1st log of email parameter : ${email}`);
-    // console.log(`1st log of emailChar variable :  ${emailChar}`)
-    // console.log(`1st log of getValue variable : ${getValue}`);
+
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{4,}$/;
-    // let emailValue = "";
-    let inputValue;
-    email.addEventListener("input", (e) => {
-      inputValue = e.target.value;
-      if (!emailRegex.test(inputValue)) {
-        e.target.value = inputValue.replace(/[^a-zA-Z0-9._@-]/g, "");
-      }
-      //const emailValidation = validate({ from: e.target.value }, constraints);
 
-      /* validate.async({ from : emailValue }, constraints).then((validationResult) => {
-        if (validationResult) {
-          e.preventDefault();
-          console.log(`Invalid email character: ${emailValue}`);
-        } else {
-          console.log(`Valid email character: ${emailValue}`)
+    return new Promise((resolve, reject) => {
+      email.addEventListener("input", (e) => {
+        const inputValue = e.target.value;
+        if (!emailRegex.test(inputValue)) {
+          e.target.value = inputValue.replace(/[^a-zA-Z0-9._@-]/g, "");
         }
-      }).catch((error) => {
-        console.error("Validation error", error);
+        console.log(
+          `log inside callback of emailValue variable : ${inputValue}`,
+        );
       });
-       do {
-        emailValue = e.target.value;
-      }while (emailValidation); 
-      
-      if (!emailValidation){
-        e.preventDefault();
-        console.log("AAAAAAAA")
-      } */
-      // let emailChar = String.fromCharCode(getValue.keyCode)
-      // console.log(`log inside callback of emailChar variable : ${emailChar}`)
 
-      console.log(`log inside callback of emailValue variable : ${inputValue}`);
+      email.addEventListener("blur", (e) => {
+        const inputValue = e.target.value;
 
-      return inputValue;
+        resolve(inputValue);
+      });
     });
-
-    return inputValue;
-    console.log(`log outside callback of emailValue variable : ${inputValue}`);
   };
 }
