@@ -127,6 +127,9 @@ export default class InscriptionForm {
         }
       });
   }
+
+/* ---------------------------------------------------------- */
+
   validateForm() {
     const component = this;
     const fields = [
@@ -135,11 +138,19 @@ export default class InscriptionForm {
         validate: (input) => {
           return component.validateIdentity(input.value);
         },
+        onError: (input) => {
+          input.parentNode.querySelector(".valid-feedback").style.display = "none";
+          input.parentNode.querySelector(".invalid-feedback").style.display = "flex";
+        },
       },
       {
         selector: ".js-form-lname",
         validate: (input) => {
           return component.validateIdentity(input.value);
+        },
+        onError: (input) => {
+          input.parentNode.querySelector(".valid-feedback").style.display = "none";
+          input.parentNode.querySelector(".invalid-feedback").style.display = "flex";
         },
       },
       {
@@ -147,11 +158,19 @@ export default class InscriptionForm {
         validate: (input) => {
           return component.validateEmail(input.value);
         },
+        onError: (input) => {
+          input.nextElementSibling.style.display = "none";
+          input.parentNode.querySelector(".invalid-feedback").style.display = "flex";
+        },
       },
       {
         selector: ".js-form-birthday",
         validate: (input) => {
           return component.validateAge(input.value);
+        },
+        onError: (input) => {
+          input.parentNode.querySelector(".valid-feedback").style.display = "none";
+          input.parentNode.querySelector(".invalid-feedback").style.display = "flex";
         },
       },
       {
@@ -159,20 +178,29 @@ export default class InscriptionForm {
         validate: (input) => {
           return component.validatePassword(input.value);
         },
+        onError: (input) => {
+          input.parentNode.querySelector(".valid-feedback").style.display = "none";
+          input.parentNode.querySelector(".invalid-feedback").style.display = "flex";
+        },
       },
     ];
-
+// method on error exist skip on other method
     fields.forEach((field) => {
       const input = component.form.querySelector(field.selector);
+      const error = field.onError(input);
       if (input) {
         const isValid = field.validate(input);
         if (isValid) {
           input.classList.add("border-success");
           input.classList.remove("border-danger");
-        } else {
+          input.parentNode.querySelector(".valid-feedback").style.display = "flex";
+          input.parentNode.querySelector(".invalid-feedback").style.display = "none";
+        } else if (error) {
           input.classList.add("border-danger");
           input.classList.remove("border-success");
-        }
+          field.onError(input);          
+        } else {}
+
         console.log('Logging values in valitadion', typeof isValid);
         if (isValid == undefined){
         console.debug(`Logging value of undefined variable :  ${isValid}`);
@@ -194,9 +222,7 @@ export default class InscriptionForm {
     if (yearsDiff >= minAgeYear) {
       return yearsDiff;
     } else {
-      return alert(
-        `Votre âge de ${yearsDiff} ans n'est pas le minimun de ${minAgeYear} ans comme il est exigé`,
-      );
+      return false
     }
   };
 
@@ -220,7 +246,7 @@ export default class InscriptionForm {
     if (password == getPassConfirm) {
       return String(password).match(passwordRegex);
     } else {
-      return console.log(`Passwords doesn't match`);
+      return false;
     }
   };
 
@@ -235,7 +261,7 @@ export default class InscriptionForm {
 
 
   filterIdentity = (identity) => {
-    const identityRegex = /[A-Za-z]/;
+    const identityRegex = /[A-Za-z]/; 
 
     console.log(`1st log of identity parameter : ${identity}`);
     return new Promise((resolve, reject) => {
