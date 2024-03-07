@@ -71,13 +71,13 @@ export default class InscriptionForm {
       {
         selector: ".js-form-name",
         filter: (input) => {
-          return component.filterIdentity(input.value);
+          return component.filterIdentity(input);
         },
       },
       {
         selector: ".js-form-lname",
         filter: (input) => {
-          return component.filterIdentity(input.value);
+          return component.filterIdentity(input);
         },
       },
       {
@@ -86,12 +86,12 @@ export default class InscriptionForm {
           return component.filterEmail(input);
         },
       },
-      {
+      /*{
         selector: ".js-form-password",
         filter: (input) => {
           return component.filterPassword(input.value);
         },
-      },
+      },*/
     ];
 
     fields.forEach((field) => {
@@ -110,19 +110,22 @@ export default class InscriptionForm {
           console.log(`Logging values in live filtering ${isValid}`);
         });
       }
-      
-      if (field.selector === ".js-form-email") {
-        input.addEventListener("blur", async () => {
-            try {
-                const emailValue = await field.filter(input);
-                console.log("Email value:", emailValue);
-                // Perform further verification with the email value
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        });
-    }
     });
+
+    fields.forEach((field) => {
+        const input = component.form.querySelector(field.selector);
+
+        if (input) {
+          input.addEventListener("blur", async () => {
+            try {
+              const inputValue = await field.filter(input);
+              console.log("Input Value:", inputValue);
+            } catch (error) {
+              console.error("Error:", error);
+            }
+          });
+        }
+      });
   }
   validateForm() {
     const component = this;
@@ -170,7 +173,10 @@ export default class InscriptionForm {
           input.classList.add("border-danger");
           input.classList.remove("border-success");
         }
-        console.log(`Logging values in valitadion ${isValid}`);
+        console.log('Logging values in valitadion', typeof isValid);
+        if (isValid == undefined){
+        console.debug(`Logging value of undefined variable :  ${isValid}`);
+        };
       }
     });
   }
@@ -221,32 +227,40 @@ export default class InscriptionForm {
   validateIdentity = (identity) => {
     const regexIdentity = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s']*$/u;
 
-    const verifyIdentity = (identity, callback) => {
-      console.log(identity);
+      // console.log(identity);
       if (identity.match(regexIdentity)) {
-        return callback(identity);
-      } else {
+        return identity.charAt(0).toUpperCase() + identity.slice(1);
       }
-    };
+  }
 
-    const capitalizeFirstLetter = () => {
-      return String(identity.charAt(0).toUpperCase() + identity.slice(1));
-    };
-
-    console.log(verifyIdentity(identity, capitalizeFirstLetter));
-  };
 
   filterIdentity = (identity) => {
     const identityRegex = /[A-Za-z]/;
 
-    let character = String.fromCharCode(identity.keyCode);
+    console.log(`1st log of identity parameter : ${identity}`);
+    return new Promise((resolve, reject) => {
+      identity.addEventListener("input", (e) => {
+        const inputValue = e.target.value;
 
-    if (!identityRegex(character)) {
-      return false;
-    } else {
-      String(validate.capitalize(identity));
-    }
+        if (!identityRegex.test(inputValue)) {
+          e.target.value = inputValue.replace(/[^a-zA-Z0-9._@-]/g, "");
+        }
+        console.log(
+          `log inside callback of emailValue variable : ${inputValue}`,
+        );
+      });
+
+      identity.addEventListener("blur", (e) => {
+        const inputValue = e.target.value;
+
+        resolve(inputValue);
+      });
+    });
   };
+
+  /* capitalizeFirstLetter = (e) => {
+    return String(e.charAt(0).toUpperCase() + e.slice(1));
+  }; */
 
   filterEmail = (email) => {
     console.log(`1st log of email parameter : ${email}`);
@@ -271,4 +285,19 @@ export default class InscriptionForm {
       });
     });
   };
+
+  /* filterPassword = (password) => {
+
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+    return new Promise((resolve, reject) => {
+      password.addEventListener("input", (e) => {
+        const inputValue = e.target.value;
+
+        if (!passwordRegex.test(inputValue)) {
+          e.target.value = inputValue.replace()
+        }
+      });
+    });
+  }*/
 }
