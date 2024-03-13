@@ -1,25 +1,32 @@
 import "../scss/styles.scss";
-import * as bootstrap from 'bootstrap';
 import InscriptionForm from "./Components/InscriptionForm";
-// import "../../node_modules/bootstrap/dist/js/bootstrap.bundle";
-// import carousel from "bootstrap/js/dist/carousel";
+import Swiper from 'swiper/bundle';
+
+// import styles bundle
+import 'swiper/css/bundle';
 
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector(".js-dom-ready").classList.remove("hidden");
   new InscriptionForm();
 
-  /*window.onload = () => {
-    localStorage.setItem("name", document.getElementById("fname").value);
-    localStorage.setItem("lname", document.getElementById("flname").value);
-    localStorage.setItem("email", document.getElementById("email").value);
-    localStorage.setItem(
-      "birthday",
-      document.getElementById("fbirthday").value,
-    );
-  };
-
-  localStorage.getItem("name");
-  localStorage.getItem("lname");
-  localStorage.getItem("email");
-  localStorage.getItem("birthday");*/
+  // init Swiper:
+  const swiper = new Swiper('.swiper', {
+    speed: 400,
+    spaceBetween: 100,
+    effect: 'cards',
+    pagination: {
+      el: ".swiper-pagination",
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    scrollbar: {
+        el: ".swiper-scrollbar",
+        hide: false,
+      },
+    snapOnRelease: true, 
+    
+  });
+  // 
 });

@@ -7,11 +7,11 @@
     </head>
 
     <body>
-        <main class="p-5 mx-auto">
+        <main class="p-5 mx-auto bg-body-tertiary">
             <h2 class="mb-5 js-dom-ready hidden">Formulaire d'inscription</h2>
             <div class="container py-5 px-3 mx-auto">
                 <div class="row">
-                    <div id="form-container" class="col-sm-12 col-lg-6">
+                    <div id="form-container" class="col-sm-12 col-lg-6 bg-white ps-5 pt-5">
                         <h1>Inscription</h1>
                         <form
                             class="row needs-validation"
@@ -161,7 +161,8 @@
                                         minlength="12"
                                         required
                                     />
-                                    <span class="cursor-pointer input-group-text js-reveal-password"
+                                    <span
+                                        class="cursor-pointer input-group-text js-reveal-password"
                                         ><i
                                             class="bi bi-eye font-secondary"
                                             style="font-size: 1rem"
@@ -202,7 +203,8 @@
                                         minlength="12"
                                         required
                                     />
-                                    <span class="cursor-pointer input-group-text js-reveal-password"
+                                    <span
+                                        class="cursor-pointer input-group-text js-reveal-password"
                                         ><i
                                             class="bi bi-eye font-secondary"
                                             style="font-size: 1rem"
@@ -226,119 +228,34 @@
                                 <!-- </div> -->
                             </div>
                             <div class="col-6 px-0 my-5">
-                                <button type="submit" class="btn btn-primary">S'enregistrer</button>
+                                <button type="submit" class="btn btn-primary">
+                                    Valider mon inscription
+                                </button>
                             </div>
                         </form>
                     </div>
-                    <div id="slider" class="col-sm-12 col-lg-6">
-                        <div
-                            id="carouselExampleCaptions"
-                            class="carousel slide"
-                        >
-                            <div class="carousel-indicators">
-                                <button
-                                    type="button"
-                                    data-bs-target="#carouselExampleCaptions"
-                                    data-bs-slide-to="0"
-                                    class="active"
-                                    aria-current="true"
-                                    aria-label="Slide 1"
-                                ></button>
-                                <button
-                                    type="button"
-                                    data-bs-target="#carouselExampleCaptions"
-                                    data-bs-slide-to="1"
-                                    aria-label="Slide 2"
-                                ></button>
-                                <button
-                                    type="button"
-                                    data-bs-target="#carouselExampleCaptions"
-                                    data-bs-slide-to="2"
-                                    aria-label="Slide 3"
-                                ></button>
+                    <div id="slider" class="col-sm-12 col-lg-6 d-flex align-items-center">
+                        <div class="swiper w-75 h-75">
+                            <div class="swiper-wrapper">
+                                <!-- Slides -->
+                                <div class="swiper-slide ratio ratio-4x3">
+                                    <img src="./img/slider-1.jpg">
+                                </div>
+                                <div class="swiper-slide ratio ratio-4x3">
+                                    <img src="./img/slider-2.jpg">
+                                </div>
+                                <div class="swiper-slide ratio ratio-4x3">
+                                    <img src="./img/slider-3.jpg">
+                                </div>
+                                ...
                             </div>
-                            <div class="text-dark-emphasis carousel-inner">
-                                <div
-                                    class="text-bg-dark carousel-item active ratio ratio-4x3"
-                                >
-                                    <img
-                                        src="./img/slider-1.jpg"
-                                        class="card-img opacity-50 img-fluid"
-                                        alt="..."
-                                    />
-                                    <div
-                                        class="py-4 bg-gradient carousel-caption d-flex justify-content-end flex-column"
-                                    >
-                                        <h5>First slide label</h5>
-                                        <p>
-                                            Some representative placeholder
-                                            content for the first slide.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="text-bg-dark carousel-item ratio ratio-4x3"
-                                >
-                                    <img
-                                        src="./img/slider-2.jpg"
-                                        class="card-img opacity-50 img-fluid"
-                                        alt="..."
-                                    />
-                                    <div
-                                        class="py-4 bg-gradient carousel-caption d-flex justify-content-end flex-column"
-                                        style
-                                    >
-                                        <h5>Second slide label</h5>
-                                        <p>
-                                            Some representative placeholder
-                                            content for the second slide.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="text-bg-dark carousel-item ratio ratio-4x3"
-                                >
-                                    <img
-                                        src="./img/slider-3.jpg"
-                                        class="card-img opacity-50 img-fluid"
-                                        alt="..."
-                                    />
-                                    <div
-                                        class="py-4 bg-gradient carousel-caption d-flex justify-content-end flex-column"
-                                        style
-                                    >
-                                        <h5>Third slide label</h5>
-                                        <p>
-                                            Some representative placeholder
-                                            content for the third slide.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <button
-                                class="carousel-control-prev"
-                                type="button"
-                                data-bs-target="#carouselExampleCaptions"
-                                data-bs-slide="prev"
-                            >
-                                <span
-                                    class="carousel-control-prev-icon"
-                                    aria-hidden="true"
-                                ></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button
-                                class="carousel-control-next"
-                                type="button"
-                                data-bs-target="#carouselExampleCaptions"
-                                data-bs-slide="next"
-                            >
-                                <span
-                                    class="carousel-control-next-icon"
-                                    aria-hidden="true"
-                                ></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
+                            <!-- If we need pagination <div class="swiper-pagination"></div> -->
+                            <!-- If we need navigation buttons -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+
+                            <!-- If we need scrollbar -->
+                            <div class="swiper-scrollbar"></div>
                         </div>
                     </div>
                 </div>
@@ -346,9 +263,12 @@
         </main>
         <script type="module" src="./js/main.js"></script>
         <style>
-            .cursor-pointer{
+            .cursor-pointer {
                 cursor: pointer;
-            };
+            }
+            #slider {
+                background-color: #CFF5F6;
+            }
         </style>
     </body>
 </html>
