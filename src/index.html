@@ -20,28 +20,28 @@
                             method="POST"
                             novalidate
                         >
-                            <div class="col-5 mt-5 mb-3 px-0">
+                            <div class="col-5 mt-5 mb-3 px-0 me-5">
                                 <div class="container">
                                     <div class="row">
                                         <label
-                                            class="col-6 px-0 pb-2"
+                                            class="col-6 px-0 pb-2 form-label"
                                             for="fname"
                                             >Prénom *</label
                                         >
                                         <input
-                                            class="col-10 js-form-name"
+                                            class="col-10 js-form-name form-control"
                                             type="text"
                                             id="fname"
                                             name="fname"
                                         />
                                         <div
-                                            class="valid-feedback col-6"
+                                            class="valid-feedback col-6 px-0"
                                             style="display: none"
                                         >
                                             Ce Prénom est valable!
                                         </div>
                                         <div
-                                            class="invalid-feedback col-6"
+                                            class="invalid-feedback col-6 px-0"
                                             style="display: none"
                                         >
                                             Veillez saisir un prénom
@@ -50,28 +50,28 @@
                                 </div>
                             </div>
 
-                            <div class="col-6 px-0 mt-5 mb-3 px-0">
+                            <div class="col-5 px-0 mt-5 mb-3 px-0">
                                 <div class="container">
                                     <div class="row">
                                         <label
-                                            class="col-6 px-0 pb-2"
+                                            class="col-6 px-0 pb-2 form-label"
                                             for="flname"
                                             >Nom *</label
                                         >
                                         <input
-                                            class="col-8 js-form-lname"
+                                            class="col-8 js-form-lname form-control"
                                             type="text"
                                             id="flname"
                                             name="flname"
                                         />
                                         <div
-                                            class="valid-feedback col-6"
+                                            class="valid-feedback col-6 px-0"
                                             style="display: none"
                                         >
                                             Ce nom est valable!
                                         </div>
                                         <div
-                                            class="invalid-feedback col-6"
+                                            class="invalid-feedback col-6 px-0"
                                             style="display: none"
                                         >
                                             Veillez saisir un nom
@@ -80,31 +80,32 @@
                                 </div>
                             </div>
 
-                            <div class="col-6 mb-3 px-0">
+                            <div class="col-5 mb-3 px-0 me-5">
                                 <div class="container">
                                     <div class="row">
                                         <label
-                                            class="col-6 px-0 pb-2"
+                                            class="col-6 pb-2 form-label"
                                             for="email"
                                             >E-mail *</label
                                         >
                                         <input
-                                            class="col-10 px-0 js-form-email"
+                                            class="col-10 js-form-email form-control"
                                             type="mail"
                                             id="email"
                                             name="email"
                                         />
                                         <div
-                                            class="valid-feedback col-6"
+                                            class="valid-feedback col-6 px-0 "
                                             style="display: none"
                                         >
                                             Ce mail est valable!
                                         </div>
                                         <div
-                                            class="invalid-feedback col-6"
+                                            class="invalid-feedback col-6 px-0"
                                             style="display: none"
                                         >
-                                            Veillez saisir un mail existant
+                                            Veillez saisir un mail existant 
+                                            <small class="fst-italic"> (tout mail finissant par @yopmail.com n'est pas accepté)</small>
                                         </div>
                                     </div>
                                 </div>
@@ -114,32 +115,43 @@
                                 <div class="container">
                                     <div class="row">
                                         <label
-                                            class="col-sm-12 col-lg-10 px-0 pb-2"
+                                            class="col-sm-12 col-lg-10 px-0 pb-2 form-label"
                                             for="fbirthday"
-                                            >Date de naissance*
+                                            >Date de naissance *
                                         </label>
-                                        <input
-                                            class="js-form-birthday"
-                                            type="date"
-                                            id="fbirthday"
-                                            name="fbirthday"
-                                            value="2004-07-22"
-                                            min="1900-07-22"
-                                            max="2004-07-22"
-                                        />
-                                        <div
-                                            class="valid-feedback"
-                                            style="display: none"
-                                        >
-                                            Ces dates sont valables!
-                                        </div>
-                                        <div
-                                            class="invalid-feedback"
-                                            style="display: none"
-                                        >
-                                            Vous n'avez pas le minimun d'âge
-                                            requise
-                                        </div>
+                                        <div class="input-group px-0" >
+                                            <input
+                                                class="js-form-birthday form-control"
+                                                type="date"
+                                                id="fbirthday"
+                                                name="fbirthday"
+                                                value="2004-07-22"
+                                                min="1900-07-22"
+                                                max="2004-07-22"
+                                                style="border-radius: 6.4px 6.4px 6.4px 6.4px"
+                                            />
+                                            <span
+                                            class="cursor-pointer input-group-text"
+                                            style="border-radius: 0 6.4px 6.4px 0"
+                                            ><i
+                                                class="bi bi-calendar font-secondary"
+                                                style="font-size: 1rem"
+                                            ></i
+                                        ></span>
+                                            <div
+                                                class="valid-feedback px-0"
+                                                style="display: none"
+                                            >
+                                                Ces dates sont valables!
+                                            </div>
+                                            <div
+                                                class="invalid-feedback px-0"
+                                                style="display: none"
+                                            >
+                                                Vous n'avez pas le minimun d'âge
+                                                requise
+                                            </div>
+                                        </div>    
                                     </div>
                                 </div>
                             </div>
@@ -148,9 +160,10 @@
                                 <!-- <div class="container"> -->
                                 <!-- <div class="row"> -->
                                 <label
-                                    class="col-sm-12 col-lg-8 px-0 pb-2 form-label"
+                                    class="lh-1 col-sm-12 col-lg-12 px-0 form-label"
                                     for="fpassword"
-                                    >Mot de passe*</label
+                                    >Mot de passe * </br>
+                                    <small class="password-requirements lh-1 text-warning">Min 8 caractères, une chiffre et un caractère special (@ $ ! % * # ? &) </small></label
                                 >
                                 <div class="input-group">
                                     <input
@@ -163,6 +176,7 @@
                                     />
                                     <span
                                         class="cursor-pointer input-group-text js-reveal-password"
+                                        style="border-radius: 0 6.4px 6.4px 0"
                                         ><i
                                             class="bi bi-eye font-secondary"
                                             style="font-size: 1rem"
@@ -179,7 +193,7 @@
                                         style="display: none"
                                     >
                                         Veuillez vérifier si votre mot de passe
-                                        est en regle
+                                        est en regle avec les réquis
                                     </div>
                                 </div>
                                 <!-- </div> -->
@@ -192,7 +206,7 @@
                                 <label
                                     class="col-12 px-0 pb-2 form-label"
                                     for="fpassword"
-                                    >Confirmer mot de passe*</label
+                                    >Confirmer mot de passe *</label
                                 >
                                 <div class="input-group">
                                     <input
@@ -205,6 +219,7 @@
                                     />
                                     <span
                                         class="cursor-pointer input-group-text js-reveal-password"
+                                        style="border-radius: 0 6.4px 6.4px 0"
                                         ><i
                                             class="bi bi-eye font-secondary"
                                             style="font-size: 1rem"
@@ -221,7 +236,7 @@
                                         style="display: none"
                                     >
                                         Veuillez vérifier si votre vérification
-                                        coïncide
+                                        coïncide avec le mot de pass
                                     </div>
                                 </div>
                                 <!-- </div> -->
@@ -268,6 +283,11 @@
             }
             #slider {
                 background-color: #CFF5F6;
+            }
+
+            .password-requirements {
+                font-size: 0.65em;
+                letter-spacing: -0.8px;
             }
         </style>
     </body>

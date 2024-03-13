@@ -9,7 +9,8 @@ export default {
   resolve: {
     alias: {
       "bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),
-      "bootstrap-icons": path.resolve(__dirname, "node_modules/bootstrap-icons")
+      "bootstrap-icons": path.resolve(__dirname, "node_modules/bootstrap-icons"),
+      "flatpickr": path.resolve(__dirname, "node_modules/flatpickr")
     },
   },
   server: {

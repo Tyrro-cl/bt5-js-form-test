@@ -1,5 +1,5 @@
 import flatpickr from "flatpickr";
-import "flatpickr/dist/themes/light.css";
+// import "flatpickr/dist/themes/light.css";
 import validate from "validate.js";
 import moment from "moment";
 
@@ -132,26 +132,26 @@ export default class InscriptionForm {
 
   validateForm() {
     const component = this;
+    const handleError = (input) => {
+      input.parentNode.querySelector(".valid-feedback").style.display = "none";
+      input.parentNode.querySelector(".invalid-feedback").style.display = "flex";
+      input.classList.add("border-danger");
+      input.classList.remove("border-success");
+    };
     const fields = [
       {
         selector: ".js-form-name",
         validate: (input) => {
           return component.validateIdentity(input.value);
         },
-        onError: (input) => {
-          input.parentNode.querySelector(".valid-feedback").style.display = "none";
-          input.parentNode.querySelector(".invalid-feedback").style.display = "flex";
-        },
+        onError: handleError,
       },
       {
         selector: ".js-form-lname",
         validate: (input) => {
           return component.validateIdentity(input.value);
         },
-        onError: (input) => {
-          input.parentNode.querySelector(".valid-feedback").style.display = "none";
-          input.parentNode.querySelector(".invalid-feedback").style.display = "flex";
-        },
+        onError: handleError,
       },
       {
         selector: ".js-form-email",
@@ -160,7 +160,9 @@ export default class InscriptionForm {
         },
         onError: (input) => {
           input.nextElementSibling.style.display = "none";
-          input.parentNode.querySelector(".invalid-feedback").style.display = "flex";
+          input.parentNode.querySelector(".invalid-feedback").style.display = "inline-block";
+          input.classList.add("border-danger");
+          input.classList.remove("border-success");
         },
       },
       {
@@ -168,20 +170,21 @@ export default class InscriptionForm {
         validate: (input) => {
           return component.validateAge(input.value);
         },
-        onError: (input) => {
-          input.parentNode.querySelector(".valid-feedback").style.display = "none";
-          input.parentNode.querySelector(".invalid-feedback").style.display = "flex";
-        },
+        onError: handleError,
       },
       {
         selector: ".js-form-password",
         validate: (input) => {
           return component.validatePassword(input.value);
         },
-        onError: (input) => {
-          input.parentNode.querySelector(".valid-feedback").style.display = "none";
-          input.parentNode.querySelector(".invalid-feedback").style.display = "flex";
+        onError: handleError,
+      },
+      {
+        selector: ".js-form-confirm-password",
+        validate: (input) => {
+          return component.validatePassword(input.value);
         },
+        onError: handleError,
       },
     ];
 // method on error exist skip on other method
@@ -196,8 +199,6 @@ export default class InscriptionForm {
           input.parentNode.querySelector(".valid-feedback").style.display = "flex";
           input.parentNode.querySelector(".invalid-feedback").style.display = "none";
         } else if (error) {
-          input.classList.add("border-danger");
-          input.classList.remove("border-success");
           field.onError(input);          
         } else {}
 
@@ -250,6 +251,23 @@ export default class InscriptionForm {
     }
   };
 
+  validatePasswordConfirmation = (password) => {
+    // Minimum eight characters, at least one letter, one number and one special character:
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+
+    const component = this;
+    const getPassword = component.form.querySelector(
+      ".js-form-password",
+    ).value;
+
+    if (password == getPassword) {
+      return String(password).match(passwordRegex);
+    } else {
+      return false;
+    }
+  };
+
   validateIdentity = (identity) => {
     const regexIdentity = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s']*$/u;
 
@@ -258,7 +276,6 @@ export default class InscriptionForm {
         return identity.charAt(0).toUpperCase() + identity.slice(1);
       }
   }
-
 
   filterIdentity = (identity) => {
     const identityRegex = /[A-Za-z]/; 
@@ -283,10 +300,6 @@ export default class InscriptionForm {
       });
     });
   };
-
-  /* capitalizeFirstLetter = (e) => {
-    return String(e.charAt(0).toUpperCase() + e.slice(1));
-  }; */
 
   filterEmail = (email) => {
     console.log(`1st log of email parameter : ${email}`);

@@ -1,15 +1,12 @@
 import "../scss/styles.scss";
 import InscriptionForm from "./Components/InscriptionForm";
 import Swiper from 'swiper/bundle';
-
-// import styles bundle
 import 'swiper/css/bundle';
 
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector(".js-dom-ready").classList.remove("hidden");
   new InscriptionForm();
 
-  // init Swiper:
   const swiper = new Swiper('.swiper', {
     speed: 400,
     spaceBetween: 100,
@@ -26,7 +23,5 @@ document.addEventListener("DOMContentLoaded", () => {
         hide: false,
       },
     snapOnRelease: true, 
-    
   });
-  // 
 });
